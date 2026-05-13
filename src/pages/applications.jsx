@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCandidateApplications } from "../api/applications";
+import { getApplications } from "../api/applications";
 
 function Applications() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function Applications() {
   const fetchApplications = async () => {
     try {
       setErrorMessage("");
-      const response = await getCandidateApplications(page);
+      const response = await getApplications(page);
 
       setApplications(response.applications.rows);
       setTotalPages(Math.ceil(response.applications.count / 5));

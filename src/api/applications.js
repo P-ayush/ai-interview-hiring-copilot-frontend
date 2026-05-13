@@ -1,6 +1,6 @@
 import api from "./axios";
 
-const getCandidateApplications = async (page = 1) => {
+const getApplications = async (page = 1) => {
     const response =
         await api.get(
             `/application?page=${page}&limit=5`
@@ -15,5 +15,16 @@ const joinInterviewRoom =
         return `/interview/${interviewId}`;
 
     };
+export const updateApplicationStatus = async (applicationId, status) => {
+    const response =
+        await api.patch(
+            `/application/${applicationId}/status`,
+            {
+                status,
+            }
+        );
+    return response.data;
+};
 
-export { getCandidateApplications, joinInterviewRoom };
+
+export { getApplications, joinInterviewRoom };
