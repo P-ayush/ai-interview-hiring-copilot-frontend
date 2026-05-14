@@ -2,7 +2,9 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import createSocket from "../socket/socket";
 import ChatMessage from "../components/chatMessage";
-import { getInterviewMessages } from "../api/interview";
+import { getInterviewMessages, completeInterview } from "../api/interview";
+import { useNavigate } from "react-router-dom";
+import Layout from "../components/Layout";
 
 function Interview() {
   const { id } = useParams();
@@ -57,52 +59,75 @@ function Interview() {
     });
     setMessage("");
   };
-
+  const handleCompleteInterview = async () => {
+    try {
+      await completeInterview(id);
+      alert("Interview completed successfully");
+      navigate("/applications");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <div
-      style={{
-        padding: "20px",
-      }}
-    >
-      <h1>AI Interview</h1>
-
+    <Layout>
       <div
         style={{
-          border: "1px solid gray",
-          height: "400px",
-          overflowY: "scroll",
-          padding: "10px",
-          marginBottom: "10px",
+          padding: "20px",
         }}
       >
-        {messages.map((msg, index) => (
-          <ChatMessage key={index} sender={msg.sender} message={msg.message} />
-        ))}
+        <h1>AI Interview</h1>
 
-        <div ref={messagesEndRef} />
+        <div
+          style={{
+            border: "1px solid gray",
+            height: "400px",
+            overflowY: "scroll",
+            padding: "10px",
+            marginBottom: "10px",
+          }}
+        >
+          {messages.map((msg, index) => (
+            <ChatMessage
+              key={index}
+              sender={msg.sender}
+              message={msg.message}
+            />
+          ))}
+
+          <div ref={messagesEndRef} />
+        </div>
+        <input
+          type="text"
+          placeholder="Enter message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          style={{
+            width: "80%",
+
+            padding: "10px",
+          }}
+        />
+        <button
+          onClick={sendMessage}
+          style={{
+            padding: "10px",
+
+            marginLeft: "10px",
+          }}
+        >
+          Send
+        </button>
+        <button
+          onClick={handleCompleteInterview}
+          style={{
+            padding: "10px",
+            marginLeft: "10px",
+          }}
+        >
+          Complete Interview
+        </button>
       </div>
-      <input
-        type="text"
-        placeholder="Enter message"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        style={{
-          width: "80%",
-
-          padding: "10px",
-        }}
-      />
-      <button
-        onClick={sendMessage}
-        style={{
-          padding: "10px",
-
-          marginLeft: "10px",
-        }}
-      >
-        Send
-      </button>
-    </div>
+    </Layout>
   );
 }
 

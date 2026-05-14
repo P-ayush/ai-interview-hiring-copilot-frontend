@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { listJobs, applyJob } from "../api/job";
-
+import Layout from "../components/Layout";
 function Jobs() {
   const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
@@ -33,7 +33,8 @@ function Jobs() {
     }
   };
   return (
-    <div>
+
+    <Layout>
       <h1>Jobs</h1>
       {errorMessage && (
         <p
@@ -59,7 +60,7 @@ function Jobs() {
           <button onClick={() => applyForJob(job.id)}>Apply</button>
         </div>
       ))}
-    </div>
+    </Layout>
   );
 }
 

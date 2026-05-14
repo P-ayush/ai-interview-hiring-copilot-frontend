@@ -22,8 +22,9 @@ function Login() {
         response = await signUp({ name, email, password });
       }
       localStorage.setItem("token", response.token);
+      localStorage.setItem("user", JSON.stringify(response.user));
       if (response.user.role === "recruiter") {
-        navigate("/recruiter-dashboard");
+        navigate("/recruiter/jobs");
       } else {
         navigate("/jobs");
       }

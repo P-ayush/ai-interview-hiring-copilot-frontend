@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getApplications } from "../api/applications";
-
+import Layout from "../components/Layout";
 function Applications() {
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
@@ -30,6 +30,7 @@ function Applications() {
   };
 
   return (
+    <Layout>
     <div
       style={{
         padding: "20px",
@@ -117,6 +118,7 @@ function Applications() {
         </button>
       </div>
     </div>
+    </Layout>
   );
 }
 

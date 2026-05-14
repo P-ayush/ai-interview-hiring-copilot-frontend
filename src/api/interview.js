@@ -25,3 +25,18 @@ export const getRecruiterInterviews = async () => {
     return response.data;
 
 };
+export const completeInterview = async (interviewId) => {
+    const response =
+        await api.patch(
+            `/interview/${interviewId}/status`
+        );
+    return response.data;
+
+};
+export const getInterview = async (interviewId) => {
+    const response =
+        await api.get(
+            `/interview/${interviewId}`
+        );
+    return response.data;
+};

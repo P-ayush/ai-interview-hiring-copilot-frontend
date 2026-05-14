@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { getRecruiterInterviews } from "../api/interview";
-
+import Layout from "../components/Layout";
 import InterviewCard from "../components/InterviewCard";
 
 function RecruiterInterviews() {
@@ -27,6 +27,7 @@ function RecruiterInterviews() {
   };
 
   return (
+     <Layout>
     <div
       style={{
         padding: "20px",
@@ -50,6 +51,7 @@ function RecruiterInterviews() {
         ))
       )}
     </div>
+    </Layout>
   );
 }
 
