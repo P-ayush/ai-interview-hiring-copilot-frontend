@@ -1,3 +1,4 @@
+import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -11,6 +12,7 @@ import RecruiterInterview from "./pages/RecruiterInterview";
 import RecruiterJobs from "./pages/RecruiterJobs";
 import RecruiterApplicants from "./pages/RecruiterApplicants";
 import CreateJob from "./pages/CreateJob";
+import UploadResume from "./components/UploadResume";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -84,6 +86,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         element={
           <ProtectedRoute role="recruiter">
             <CreateJob />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/upload-resume"
+        element={
+          <ProtectedRoute role="candidate">
+            <UploadResume />
           </ProtectedRoute>
         }
       />
