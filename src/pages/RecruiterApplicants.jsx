@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import { useNavigate, useParams } from "react-router-dom";
 
 import { updateApplicationStatus } from "../api/applications";
@@ -7,13 +6,16 @@ import { updateApplicationStatus } from "../api/applications";
 import { startInterview } from "../api/interview";
 
 import { getApplicants } from "../api/job";
+
 import Layout from "../components/Layout";
+
 import ApplicationCard from "../components/ApplicationCard";
 
 function RecruiterApplicants() {
   const { jobId } = useParams();
 
   const navigate = useNavigate();
+
   const [applications, setApplications] = useState([]);
 
   const [page, setPage] = useState(1);
@@ -34,7 +36,7 @@ function RecruiterApplicants() {
 
       setApplications(response.applications);
 
-      setTotalPages(Math.ceil(response.applications.count / 5));
+      setTotalPages(response.totalPages);
     } catch (error) {
       console.log(error);
 
@@ -42,11 +44,7 @@ function RecruiterApplicants() {
     }
   };
 
-  const handleUpdateStatus = async (
-    applicationId,
-
-    status,
-  ) => {
+  const handleUpdateStatus = async (applicationId, status) => {
     try {
       await updateApplicationStatus(applicationId, status);
 
@@ -68,65 +66,75 @@ function RecruiterApplicants() {
 
   return (
     <Layout>
-    <div
-      style={{
-        padding: "20px",
-      }}
-    >
-      <h1>Applicants</h1>
+      <div className="min-h-screen bg-gray-100 p-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-4xl font-bold text-gray-800">Applicants</h1>
 
-      {errorMessage && (
-        <p
-          style={{
-            color: "red",
-          }}
-        >
-          {errorMessage}
-        </p>
-      )}
+              <p className="text-gray-500 mt-2">
+                Manage candidate applications and interviews
+              </p>
+            </div>
 
-      {applications.length === 0 ? (
-        <p>No applicants found</p>
-      ) : (
-        applications.map((application) => (
-          <ApplicationCard
-            key={application.id}
-            application={application}
-            onUpdateStatus={handleUpdateStatus}
-            onStartInterview={handleStartInterview}
-          />
-        ))
-      )}
+            <button
+              onClick={() => navigate("/recruiter/interviews")}
+              className="bg-black hover:bg-gray-800 text-white px-5 py-3 rounded-xl transition"
+            >
+              View Interviews
+            </button>
+          </div>
 
-      <button onClick={() => navigate("/recruiter/interviews")}>
-        View Interviews
-      </button>
+          {errorMessage && (
+            <div className="bg-red-100 text-red-600 p-4 rounded-xl mb-6">
+              {errorMessage}
+            </div>
+          )}
 
-      <div
-        style={{
-          marginTop: "20px",
-        }}
-      >
-        <button disabled={page === 1} onClick={() => setPage(page - 1)}>
-          Previous
-        </button>
+          {applications.length === 0 ? (
+            <div className="bg-white rounded-2xl shadow-sm p-10 text-center">
+              <h2 className="text-2xl font-semibold text-gray-700">
+                No applicants found
+              </h2>
 
-        <span
-          style={{
-            margin: "0 10px",
-          }}
-        >
-          Page {page}
-        </span>
+              <p className="text-gray-500 mt-2">
+                Applications will appear here once candidates apply
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {applications.map((application) => (
+                <ApplicationCard
+                  key={application.id}
+                  application={application}
+                  onUpdateStatus={handleUpdateStatus}
+                  onStartInterview={handleStartInterview}
+                />
+              ))}
+            </div>
+          )}
 
-        <button
-          disabled={page === totalPages}
-          onClick={() => setPage(page + 1)}
-        >
-          Next
-        </button>
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <button
+              disabled={page === 1}
+              onClick={() => setPage(page - 1)}
+              className="bg-white border border-gray-300 px-4 py-2 rounded-lg disabled:opacity-50"
+            >
+              Previous
+            </button>
+
+            <span className="text-gray-700 font-medium">Page {page}</span>
+
+            <button
+              disabled={page === totalPages}
+              onClick={() => setPage(page + 1)}
+              className="bg-white border border-gray-300 px-4 py-2 rounded-lg disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
     </Layout>
   );
 }
