@@ -98,7 +98,7 @@ function Applications() {
                         </p>
                       </div>
 
-                      {application.status === "interview" ? (
+                      {application.interview ? (
                         <div>
                           <p className="text-sm text-gray-700 mb-4">
                             <span className="font-semibold">
