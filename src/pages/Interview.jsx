@@ -36,8 +36,24 @@ function Interview() {
       setMessages((prev) => [...prev, data]);
     });
 
+    socketRef.current.on("interview_completed", () => {
+      setIsCompleted(true);
+
+      alert("Interview already completed");
+
+      navigate("/applications");
+    });
+
+    socketRef.current.on("error_message", (data) => {
+      alert(data.message || data);
+    });
+
     return () => {
       socketRef.current.off("receive_message");
+
+      socketRef.current.off("interview_completed");
+
+      socketRef.current.off("error_message");
 
       socketRef.current.disconnect();
     };
