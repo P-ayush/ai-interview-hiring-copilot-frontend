@@ -8,7 +8,7 @@ function Jobs() {
 
   const [jobs, setJobs] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const [loadingJobId, setLoadingJobId] = useState(null);
   useEffect(() => {
     fetchJobs();
   }, []);
@@ -25,6 +25,7 @@ function Jobs() {
 
   const applyForJob = async (jobId) => {
     try {
+      setLoadingJobId(jobId);
       setErrorMessage("");
 
       await applyJob(jobId);
@@ -34,6 +35,8 @@ function Jobs() {
       console.log(error);
 
       setErrorMessage(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoadingJobId(null);
     }
   };
 
@@ -92,9 +95,14 @@ function Jobs() {
 
                   <button
                     onClick={() => applyForJob(job.id)}
-                    className="mt-auto w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition text-sm font-medium"
+                    disabled={loadingJobId === job.id}
+                    className="mt-auto w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
-                    Apply
+                    {loadingJobId === job.id && (
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    )}
+
+                    {loadingJobId === job.id ? "Applying..." : "Apply"}
                   </button>
                 </div>
               ))}

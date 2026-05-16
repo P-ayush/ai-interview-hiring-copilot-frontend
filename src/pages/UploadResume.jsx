@@ -90,7 +90,7 @@ function UploadResume() {
                   </h2>
 
                   <div className="bg-black text-white px-4 py-2 rounded-xl text-sm font-medium">
-                    Score: {profile.aiScore}/100
+                    Ai Score: {profile.aiScore}/100
                   </div>
                 </div>
 

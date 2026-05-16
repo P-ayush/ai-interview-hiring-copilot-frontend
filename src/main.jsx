@@ -12,7 +12,7 @@ import RecruiterInterview from "./pages/RecruiterInterview";
 import RecruiterJobs from "./pages/RecruiterJobs";
 import RecruiterApplicants from "./pages/RecruiterApplicants";
 import CreateJob from "./pages/CreateJob";
-import UploadResume from "./components/UploadResume";
+import UploadResume from "./pages/UploadResume";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
