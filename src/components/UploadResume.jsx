@@ -11,7 +11,7 @@ function UploadResume() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const [successMessage, setSuccessMessage] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function UploadResume() {
   const handleUpload = async (e) => {
     try {
       e.preventDefault();
-
+      setLoading(true);
       setErrorMessage("");
       setSuccessMessage("");
 
@@ -56,6 +56,8 @@ function UploadResume() {
       console.log(error);
 
       setErrorMessage(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -114,9 +116,18 @@ function UploadResume() {
 
               <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition whitespace-nowrap"
+                disabled={loading}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
-                {profile?.resumeUrl ? "Replace Resume" : "Upload Resume"}
+                {loading && (
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                )}
+
+                {loading
+                  ? "Analyzing Resume..."
+                  : profile?.resumeUrl
+                    ? "Replace Resume"
+                    : "Upload Resume"}
               </button>
             </form>
           </div>
