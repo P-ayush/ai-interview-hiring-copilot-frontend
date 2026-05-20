@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import Login from "./pages/Login";
 import Jobs from "./pages/Jobs";
-import Applications from "./pages/Applications";
+import Applications from "./pages/Applications.jsx";
 import Interview from "./pages/Interview";
 import RecruiterInterviews from "./pages/RecruiterInterviews";
 import RecruiterInterview from "./pages/RecruiterInterview";
