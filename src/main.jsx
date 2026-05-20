@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoutes";
-import Login from "./pages/Login";
+import Login from "./pages/login.jsx";
 import Jobs from "./pages/Jobs";
 import Applications from "./pages/Applications.jsx";
 import Interview from "./pages/Interview";
