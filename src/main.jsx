@@ -4,15 +4,15 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import Login from "./pages/login.jsx";
-import Jobs from "./pages/Jobs";
+import Jobs from "./pages/Jobs.jsx";
 import Applications from "./pages/Applications.jsx";
-import Interview from "./pages/Interview";
-import RecruiterInterviews from "./pages/RecruiterInterviews";
-import RecruiterInterview from "./pages/RecruiterInterview";
-import RecruiterJobs from "./pages/RecruiterJobs";
-import RecruiterApplicants from "./pages/RecruiterApplicants";
-import CreateJob from "./pages/CreateJob";
-import UploadResume from "./pages/UploadResume";
+import Interview from "./pages/Interview.jsx";
+import RecruiterInterviews from "./pages/RecruiterInterviews.jsx";
+import RecruiterInterview from "./pages/RecruiterInterview.jsx";
+import RecruiterJobs from "./pages/RecruiterJobs.jsx";
+import RecruiterApplicants from "./pages/RecruiterApplicants.jsx";
+import CreateJob from "./pages/CreateJob.jsx";
+import UploadResume from "./pages/UploadResume.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
