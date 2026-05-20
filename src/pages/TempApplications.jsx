@@ -18,6 +18,7 @@ function Applications() {
     fetchApplications();
   }, [page]);
 
+
   const fetchApplications = async () => {
     try {
       setErrorMessage("");
