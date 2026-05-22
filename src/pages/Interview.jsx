@@ -20,7 +20,7 @@ function Interview() {
   const [messages, setMessages] = useState([]);
 
   const [isCompleted, setIsCompleted] = useState(false);
-
+  const [isAiTyping, setIsAiTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
   const socketRef = useRef(null);
@@ -47,13 +47,23 @@ function Interview() {
     socketRef.current.on("error_message", (data) => {
       alert(data.message || data);
     });
+    socketRef.current.on("ai_typing", () => {
+      setIsAiTyping(true);
+    });
 
+    socketRef.current.on("ai_stop_typing", () => {
+      setIsAiTyping(false);
+    });
     return () => {
       socketRef.current.off("receive_message");
 
       socketRef.current.off("interview_completed");
 
       socketRef.current.off("error_message");
+
+      socketRef.current.off("ai_typing");
+
+      socketRef.current.off("ai_stop_typing");
 
       socketRef.current.disconnect();
     };
@@ -146,7 +156,9 @@ function Interview() {
 
               <div ref={messagesEndRef} />
             </div>
-
+            {isAiTyping && (
+              <p className="text-sm text-gray-500 mt-2">AI is typing...</p>
+            )}
             <div className="flex items-center gap-4 mt-6">
               <input
                 type="text"
